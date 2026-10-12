@@ -1,0 +1,4 @@
+#include <stdio.h>
+#include <limits.h>
+#define N 4
+int main(void) { int w[N][N] = {{0, 2, 8, 0}, {0, 0, 3, 5}, {0, 0, 0, 1}, {0, 0, 0, 0}}, dist[N] = {0, INT_MAX, INT_MAX, INT_MAX}, used[N] = {0}, prev[N] = {-1}; int queue[N] = {0}, front = 0, back = 1; printf("Graph BFS min-hop route: 0"); int seen[N] = {1}; while (front < back) { int u = queue[front++]; for (int v = 0; v < N; ++v) if (w[u][v] && !seen[v]) { seen[v] = 1; queue[back++] = v; printf(" -> %d", v); } } putchar('\n'); dist[0] = 0; for (int step = 0; step < N; ++step) { int u = -1; for (int i = 0; i < N; ++i) if (!used[i] && (u < 0 || dist[i] < dist[u])) u = i; if (u < 0 || dist[u] == INT_MAX) break; used[u] = 1; for (int v = 0; v < N; ++v) if (w[u][v] && dist[u] + w[u][v] < dist[v]) { dist[v] = dist[u] + w[u][v]; prev[v] = u; } } printf("Dijkstra cost 0->3=%d (predecessor=%d)\n", dist[3], prev[3]); return 0; }

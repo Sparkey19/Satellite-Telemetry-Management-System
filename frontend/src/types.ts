@@ -1,0 +1,6 @@
+export type Satellite = { id: string; name: string; status: "active" | "inactive" | "decommissioned"; orbit: string; launchedAt?: string; createdAt?: string };
+export type Telemetry = { id: number; satelliteId: string; timestamp: string; temperature: number; batteryVoltage: number; signalStrength: number; latitude?: number; longitude?: number; altitude?: number };
+export type Mission = { id: string; name: string; description: string; status: "planned" | "active" | "completed" | "cancelled"; startDate?: string; endDate?: string; satelliteIds: string[] };
+export type Alert = { id: number; satelliteId: string; severity: "info" | "warning" | "critical"; type: string; message: string; acknowledged: boolean; createdAt: string };
+export type Summary = { telemetryCount: number; satellitesReporting: number; averageTemperature: number; averageBatteryVoltage: number; averageSignalStrength: number; openAlerts: { severity: string; count: number }[]; recentSamples: Telemetry[]; algorithms: { rollingTemperatureAverage: number; temperatureEma: number; lowestBatterySatellite: string | null } };
+export type Packet = { packetID: number; timestamp?: string; batteryStatus: number; payloadType: string; status: string; payload?: unknown };
